@@ -4,199 +4,1035 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>EHESP Module Selection 2026-27</title>
-<!--
-  WORKING SKELETON. All validation rules are correct and live here via validation.js.
-  Claude Code: keep the logic and data flow intact; redesign/polish the UI freely
-  (frontend-design skill). Do NOT reimplement validateSelection - reuse it.
-  Set APP_CONFIG.endpoint to your deployed Apps Script web-app URL before going live.
--->
+<meta name="description" content="EHESP master programme module selection for the 2026-27 academic year." />
 <style>
-  :root{--ink:#1f2937;--mut:#6b7280;--line:#e5e7eb;--bg:#f7f8fa;--accent:#2563eb;--ok:#15803d;--bad:#b91c1c}
-  *{box-sizing:border-box} body{font-family:system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.5}
-  .wrap{max-width:760px;margin:0 auto;padding:24px}
-  h1{font-size:1.3rem;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
-  .card h2{font-size:1rem;margin:0 0 10px}
-  label{display:block;font-size:.85rem;color:var(--mut);margin:8px 0 2px}
-  input,select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;font-size:1rem}
-  .mod{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
-  .mod:last-child{border-bottom:none} .mod small{color:var(--mut)}
-  .mod.locked{opacity:.85} .mod.disabled{opacity:.45}
-  .bar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 0;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
-  button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:1rem;cursor:pointer}
-  button[disabled]{background:#9ca3af;cursor:not-allowed}
-  .pill{font-size:.8rem;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;margin-left:6px}
-  .viol{color:var(--bad);font-size:.9rem;margin:4px 0}
-  .good{color:var(--ok)} .hidden{display:none}
-  .ects{font-weight:600}
+  :root {
+    --ink: #1f2937;
+    --mut: #64748b;
+    --line: #e5e7eb;
+    --line-strong: #cbd5e1;
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --accent: #0f766e;
+    --accent-soft: #ccfbf1;
+    --accent-ink: #134e4a;
+    --ok: #15803d;
+    --ok-soft: #dcfce7;
+    --bad: #b91c1c;
+    --bad-soft: #fee2e2;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --shadow: 0 1px 2px rgba(15, 23, 42, .06), 0 1px 1px rgba(15, 23, 42, .04);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Inter", system-ui, "Segoe UI", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    font-size: 16px;
+    padding-bottom: 120px;
+  }
+
+  /* ---------- Top brand strip ---------- */
+  .brand {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+  }
+  .brand-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: var(--accent-ink);
+  }
+  .brand-mark .dot {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .brand-mark .name { font-size: .95rem; }
+  .brand-year {
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--mut);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 12px; }
+  h1 { font-size: 1.4rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .lede { color: var(--mut); margin: 0 0 22px; font-size: .98rem; }
+
+  /* ---------- Stepper ---------- */
+  .stepper {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 2px 0 14px;
+    margin-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .stepper::-webkit-scrollbar { display: none; }
+  .step-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--mut);
+    font-size: .82rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .step-chip .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--line);
+    color: var(--ink);
+    font-size: .7rem;
+    font-weight: 600;
+  }
+  .step-chip.done { color: var(--accent-ink); background: var(--accent-soft); border-color: var(--accent-soft); }
+  .step-chip.done .step-num { background: var(--accent); color: #fff; }
+  .step-chip.current { color: var(--accent-ink); background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .step-chip.current .step-num { background: var(--accent); color: #fff; }
+  .stepper-compact {
+    display: none;
+    font-size: .85rem;
+    color: var(--mut);
+    padding: 8px 0 12px;
+  }
+  .stepper-compact .cur { color: var(--accent-ink); font-weight: 600; }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    font-size: 1.02rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .card .sub {
+    color: var(--mut);
+    font-size: .9rem;
+    margin: 0 0 14px;
+  }
+  .card.intro h2 { display: flex; align-items: center; gap: 10px; }
+  .step-pill {
+    font-family: var(--mono);
+    font-size: .72rem;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    padding: 2px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .count-pill {
+    font-family: var(--mono);
+    font-size: .78rem;
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 2px 9px;
+    border-radius: 999px;
+    margin-left: 8px;
+  }
+  .count-pill.met { background: var(--ok-soft); color: var(--ok); border-color: var(--ok-soft); }
+
+  /* ---------- Form ---------- */
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-size: .82rem;
+    color: var(--mut);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--surface);
+    transition: border-color .12s, box-shadow .12s;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  input.invalid {
+    border-color: var(--bad);
+    background: var(--bad-soft);
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+
+  /* ---------- Tracks ---------- */
+  .tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 540px) { .tracks { grid-template-columns: 1fr; } }
+  .track-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 13px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: border-color .12s, background .12s, box-shadow .12s;
+  }
+  .track-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .track-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+  }
+  .track-btn .code { font-family: var(--mono); font-size: .95rem; color: var(--ink); font-weight: 600; }
+  .track-btn .meta { font-size: .78rem; color: var(--mut); display: flex; gap: 8px; align-items: center; }
+  .track-btn .level {
+    font-family: var(--mono);
+    font-size: .7rem;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  /* ---------- Module rows ---------- */
+  .mod {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .mod:last-child { border-bottom: none; }
+  .mod-check {
+    margin-top: 3px;
+    width: 18px; height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .mod-body { flex: 1; min-width: 0; }
+  .mod-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .mod-code {
+    font-family: var(--mono);
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--accent-ink);
+  }
+  .mod-name {
+    font-size: .95rem;
+    color: var(--ink);
+  }
+  .mod-meta {
+    color: var(--mut);
+    font-size: .8rem;
+    margin-top: 3px;
+    font-family: var(--mono);
+  }
+  .mod-reason {
+    color: var(--bad);
+    font-size: .78rem;
+    margin-top: 4px;
+  }
+  .mod.locked { background: linear-gradient(to right, var(--ok-soft) 0%, transparent 30%); padding-left: 6px; border-radius: 4px; }
+  .mod.locked .mod-check { accent-color: var(--ok); }
+  .mod.disabled { opacity: .55; }
+  .mod.disabled .mod-check { cursor: not-allowed; }
+
+  .lock-tag {
+    font-size: .7rem;
+    color: var(--ok);
+    background: var(--ok-soft);
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .ects-tag {
+    font-size: .75rem;
+    color: var(--mut);
+    font-family: var(--mono);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Locked tier teaser ---------- */
+  .card.locked-teaser {
+    opacity: .55;
+    background: repeating-linear-gradient(135deg, var(--surface) 0 10px, var(--bg) 10px 20px);
+    cursor: not-allowed;
+  }
+  .card.locked-teaser h2 { color: var(--mut); }
+
+  /* ---------- Review ---------- */
+  .review-group { margin-bottom: 14px; }
+  .review-group:last-child { margin-bottom: 0; }
+  .review-group h3 {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--mut);
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+  .review-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .review-pill {
+    font-family: var(--mono);
+    font-size: .82rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: var(--ink);
+  }
+  .review-pill.mandatory { background: var(--ok-soft); border-color: var(--ok-soft); color: var(--ok); }
+  .review-pill.supra { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--accent-ink); }
+
+  /* ---------- Violations / status ---------- */
+  .viols {
+    background: var(--bad-soft);
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 12px;
+  }
+  .viols-title {
+    color: var(--bad);
+    font-size: .85rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .viols ul { margin: 0; padding-left: 18px; color: var(--bad); font-size: .88rem; }
+  .viols li { margin-bottom: 3px; }
+  .status-ok {
+    background: var(--ok-soft);
+    border: 1px solid #bbf7d0;
+    color: var(--ok);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 12px;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-ok::before { content: "\2713"; font-weight: 700; }
+
+  /* ---------- Sticky bar ---------- */
+  .bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: 12px 0;
+    box-shadow: 0 -2px 12px rgba(15, 23, 42, .05);
+    z-index: 10;
+  }
+  .bar-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .bar-totals { flex: 1; min-width: 0; }
+  .bar-row1 {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: .9rem;
+    color: var(--mut);
+  }
+  .bar-row1 .total {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: var(--mono);
+  }
+  .bar-row1 .floor { color: var(--mut); font-family: var(--mono); }
+  .bar-row1 .step-now {
+    margin-left: auto;
+    font-size: .8rem;
+    color: var(--mut);
+  }
+  .bar-row1 .step-now b { color: var(--ink); }
+  .progress {
+    margin-top: 6px;
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width .3s, background-color .2s;
+    border-radius: 999px;
+  }
+  .progress-fill.met { background: var(--ok); }
+  .btn-submit {
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    font-size: .95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .12s, transform .04s;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--accent-ink); }
+  .btn-submit:active:not(:disabled) { transform: translateY(1px); }
+  .btn-submit:disabled {
+    background: var(--line-strong);
+    color: var(--mut);
+    cursor: not-allowed;
+  }
+
+  /* ---------- Result panel ---------- */
+  .result {
+    margin-top: 18px;
+    border-radius: var(--radius);
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .result.ok { border-color: #bbf7d0; background: var(--ok-soft); }
+  .result.bad { border-color: #fecaca; background: var(--bad-soft); }
+  .result h2 { margin: 0 0 6px; }
+  .result.ok h2 { color: var(--ok); }
+  .result.bad h2 { color: var(--bad); }
+  .result p { margin: 0; color: var(--ink); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 600px) {
+    .stepper { display: none; }
+    .stepper-compact { display: block; }
+    .card { padding: 18px; }
+    .bar-row1 .step-now { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+
+  .hidden { display: none !important; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Master Track &amp; Module Selection 2026-27</h1>
-  <p class="sub">Pick your track, then your modules. Mandatory modules are pre-selected. You cannot submit a combination that breaks the rules.</p>
 
-  <div class="card" id="who">
-    <h2>1. Your details</h2>
-    <label>First name</label><input id="first" />
-    <label>Last name</label><input id="last" />
-    <label>Email</label><input id="email" type="email" placeholder="name@ehesp.fr" />
+<header class="brand" role="banner">
+  <div class="brand-inner">
+    <div class="brand-mark">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="name">EHESP &mdash; Master Programme</span>
+    </div>
+    <span class="brand-year">2026&ndash;27</span>
   </div>
+</header>
 
-  <div class="card">
-    <h2>2. Track</h2>
-    <select id="track"><option value="">Select a track...</option></select>
-  </div>
+<main class="wrap">
+  <h1>Module Selection</h1>
+  <p class="lede">Pick your track, then your modules. Mandatory modules are pre-selected and locked. The form will not accept a selection that breaks the schedule or the ECTS rules.</p>
+
+  <nav class="stepper" id="stepper" aria-label="Progress"></nav>
+  <div class="stepper-compact" id="stepperCompact" aria-hidden="true"></div>
+
+  <section class="card intro" id="cardIdentity" aria-labelledby="hIdentity">
+    <h2 id="hIdentity"><span class="step-pill">Step 1</span> Your details</h2>
+    <p class="sub">Use your institutional email. A confirmation is sent there on submit; resubmitting overwrites your previous choice.</p>
+    <div class="row">
+      <div class="field">
+        <label for="first">First name</label>
+        <input id="first" type="text" autocomplete="given-name" />
+      </div>
+      <div class="field">
+        <label for="last">Last name</label>
+        <input id="last" type="text" autocomplete="family-name" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" placeholder="name@ehesp.fr" />
+    </div>
+  </section>
+
+  <section class="card intro" id="cardTrack" aria-labelledby="hTrack">
+    <h2 id="hTrack"><span class="step-pill">Step 2</span> Choose your track</h2>
+    <p class="sub">Eight master tracks. Selecting a track auto-fills its mandatory modules.</p>
+    <div class="tracks" id="trackGrid" role="radiogroup" aria-label="Track"></div>
+  </section>
 
   <div id="steps"></div>
 
-  <div class="card" id="review">
-    <h2>Summary</h2>
-    <div id="summary">Choose a track to begin.</div>
-    <div id="violations"></div>
-  </div>
+  <section class="card hidden" id="cardReview" aria-labelledby="hReview">
+    <h2 id="hReview">Review &amp; submit</h2>
+    <p class="sub">Final check. Submit when the status below is green.</p>
+    <div id="reviewSummary"></div>
+    <div id="statusPanel"></div>
+  </section>
 
-  <div class="bar">
-    <div>Total: <span class="ects" id="total">0</span> ECTS <span class="pill" id="floor"></span></div>
-    <button id="submit" disabled>Submit enrolment</button>
+  <div id="result" class="hidden" aria-live="polite"></div>
+</main>
+
+<div class="bar" role="region" aria-label="Selection summary">
+  <div class="bar-inner">
+    <div class="bar-totals">
+      <div class="bar-row1">
+        <span class="total" id="totalEcts">0</span>
+        <span class="floor" id="floorLabel">ECTS</span>
+        <span class="step-now" id="stepNow"></span>
+      </div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+    <button id="submitBtn" class="btn-submit" disabled>Submit enrolment</button>
   </div>
-  <div id="result" class="card hidden"></div>
 </div>
 
 <script src="spec.js"></script>
 <script src="validation.js"></script>
 <script>
+"use strict";
+
+/* ============================================================
+   APP_CONFIG  -  set endpoint to the Apps Script /exec URL.
+   ============================================================ */
 var APP_CONFIG = {
-  // Paste the Apps Script web-app URL here after deploying apps-script/Code.gs:
-  endpoint: "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL",
-  ectsCeiling: null   // set a number to cap total ECTS, or leave null for floor-only
+  endpoint: "https://script.google.com/macros/s/AKfycbzoutROesT-6lGbMsnTGnyW3vZLve2XKFvvgqtzkpuypdAKT_a-e1ExnDXsnACa31oT/exec",
+  ectsCeiling: null
 };
 
-var MM = EHESPValidationIndex();            // module lookup
-function EHESPValidationIndex(){ var m={}; SPEC.modules.forEach(function(x){m[x.code]=x;}); return m; }
-function mod(c){ return MM[c]; }
-function ectsOf(c){ return MM[c]?MM[c].ects:0; }
+/* ============================================================
+   Engine wrapper  -  reuse validation.js, do NOT reimplement.
+   ============================================================ */
+var MM = (function () { var m = {}; SPEC.modules.forEach(function (x) { m[x.code] = x; }); return m; })();
+var EHESP = {
+  validateSelection: validateSelection,
+  clash: function (spec, a, b) { return ehespClash(MM, a, b); },
+  nonClashingCandidates: ehespNonClashingCandidates
+};
+function ectsOf(c) { return MM[c] ? MM[c].ects : 0; }
+function modWeeks(c) { return MM[c] ? MM[c].teaching_weeks : []; }
 
-var state = { track:null, picks:[] };       // picks: [{code, role}]
+/* ============================================================
+   State
+   ============================================================ */
+var state = {
+  track: null,
+  picks: []
+};
 
-function el(tag, attrs, html){ var e=document.createElement(tag); if(attrs) for(var k in attrs) e.setAttribute(k,attrs[k]); if(html!=null) e.innerHTML=html; return e; }
+function chosenCodes() { return state.picks.map(function (p) { return p.code; }); }
+function pickFor(code) { for (var i = 0; i < state.picks.length; i++) if (state.picks[i].code === code) return state.picks[i]; return null; }
+function countRole(role) { var n = 0; for (var i = 0; i < state.picks.length; i++) if (state.picks[i].role === role) n++; return n; }
+function setPick(code, role) { state.picks = state.picks.filter(function (p) { return p.code !== code; }); state.picks.push({ code: code, role: role }); }
+function unsetPick(code) { state.picks = state.picks.filter(function (p) { return p.code !== code; }); }
 
-// populate track dropdown
-var tsel=document.getElementById('track');
-Object.keys(SPEC.tracks).forEach(function(t){ tsel.appendChild(el('option',{value:t},t)); });
-tsel.addEventListener('change', function(){ state.track=this.value||null; state.picks=[]; renderSteps(); });
-
-function chosenCodes(){ return state.picks.map(function(p){return p.code;}); }
-function countRole(role){ return state.picks.filter(function(p){return p.role===role;}).length; }
-function hasCode(c){ return chosenCodes().indexOf(c)!==-1; }
-function toggle(code, role, on){
-  state.picks = state.picks.filter(function(p){return p.code!==code;});
-  if(on) state.picks.push({code:code, role:role});
-  renderSteps();
+/* ============================================================
+   DOM helpers
+   ============================================================ */
+function el(tag, attrs, children) {
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) {
+    if (k === 'class') e.className = attrs[k];
+    else if (k === 'html') e.innerHTML = attrs[k];
+    else if (k === 'text') e.textContent = attrs[k];
+    else if (k.indexOf('on') === 0) e.addEventListener(k.slice(2), attrs[k]);
+    else e.setAttribute(k, attrs[k]);
+  }
+  if (children) {
+    if (!Array.isArray(children)) children = [children];
+    children.forEach(function (c) { if (c == null) return; e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+  }
+  return e;
 }
 
-function modRow(code, role, checked, disabled, locked){
-  var m=mod(code);
-  var row=el('div',{class:'mod'+(locked?' locked':'')+(disabled?' disabled':'')});
-  var box=el('input',{type:'checkbox'}); box.checked=checked; if(disabled||locked) box.disabled=true;
-  box.addEventListener('change', function(){ toggle(code, role, this.checked); });
-  var label=el('div',null,'<strong>'+code+'</strong> '+m.name+' <small>('+m.ects+' ECTS, '+m.teaching_weeks.join(', ')+')</small>');
-  row.appendChild(box); row.appendChild(label);
+/* ============================================================
+   Track picker
+   ============================================================ */
+(function buildTrackGrid() {
+  var grid = document.getElementById('trackGrid');
+  Object.keys(SPEC.tracks).forEach(function (t) {
+    var trk = SPEC.tracks[t];
+    var btn = el('button', { type: 'button', role: 'radio', 'aria-checked': 'false', 'data-track': t, class: 'track-btn',
+      onclick: function () { selectTrack(t); } }, [
+      el('span', { class: 'code', text: t }),
+      el('div', { class: 'meta' }, [
+        el('span', { class: 'level', text: trk.level }),
+        document.createTextNode('Floor ' + trk.ects_floor + ' ECTS')
+      ])
+    ]);
+    grid.appendChild(btn);
+  });
+})();
+
+function selectTrack(t) {
+  if (state.track === t) return;
+  state.track = t;
+  state.picks = [];
+  SPEC.tracks[t].mandatory.forEach(function (m) { state.picks.push({ code: m.code, role: 'mandatory' }); });
+  document.querySelectorAll('.track-btn').forEach(function (b) {
+    var on = b.getAttribute('data-track') === t;
+    b.classList.toggle('selected', on);
+    b.setAttribute('aria-checked', on ? 'true' : 'false');
+  });
+  render();
+  setTimeout(function () {
+    var firstStep = document.querySelector('#steps .card');
+    if (firstStep) firstStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function render() {
+  var host = document.getElementById('steps');
+  host.innerHTML = '';
+
+  if (!state.track) {
+    document.getElementById('cardReview').classList.add('hidden');
+    renderStepper();
+    renderBar();
+    return;
+  }
+
+  var trk = SPEC.tracks[state.track];
+
+  host.appendChild(renderMandatoryCard(trk));
+
+  var tiers = Object.keys(trk.electives);
+  var unlocked = true;
+  tiers.forEach(function (tier, idx) {
+    var info = trk.electives[tier];
+    var stepNo = 4 + idx;
+    if (unlocked) {
+      host.appendChild(renderTierCard(trk, tier, info, stepNo));
+      if (countRole(tier) !== info.select_n) unlocked = false;
+    } else {
+      host.appendChild(renderLockedTeaser(tier, info, stepNo));
+    }
+  });
+
+  if (unlocked && trk.supra && trk.supra.length) {
+    host.appendChild(renderSupraCard(trk));
+  }
+
+  document.getElementById('cardReview').classList.remove('hidden');
+  renderReview();
+  renderStepper();
+  renderBar();
+}
+
+function renderMandatoryCard(trk) {
+  var totalEcts = trk.mandatory.reduce(function (s, m) { return s + ectsOf(m.code); }, 0);
+  var card = el('section', { class: 'card', 'aria-labelledby': 'hMand' }, [
+    el('h2', { id: 'hMand' }, [
+      el('span', { class: 'step-pill', text: 'Step 3' }),
+      document.createTextNode(' Mandatory modules'),
+      el('span', { class: 'count-pill met', text: trk.mandatory.length + ' / ' + trk.mandatory.length })
+    ]),
+    el('p', { class: 'sub', text: 'Auto-selected for the ' + state.track + ' track (' + totalEcts.toFixed(1) + ' ECTS). These are locked.' })
+  ]);
+  trk.mandatory.forEach(function (m) { card.appendChild(modRow({ code: m.code, role: 'mandatory', checked: true, locked: true })); });
+  return card;
+}
+
+function renderTierCard(trk, tier, info, stepNo) {
+  var got = countRole(tier);
+  var atLimit = got >= info.select_n;
+  var met = got === info.select_n;
+  var card = el('section', { class: 'card', 'aria-labelledby': 'h_' + tier }, [
+    el('h2', { id: 'h_' + tier }, [
+      el('span', { class: 'step-pill', text: 'Step ' + stepNo }),
+      document.createTextNode(' ' + tier),
+      el('span', { class: 'count-pill' + (met ? ' met' : ''), text: got + ' / ' + info.select_n })
+    ]),
+    el('p', { class: 'sub', text: 'Pick exactly ' + info.select_n + ' from this pool. Clashing weeks disable a candidate.' })
+  ]);
+
+  info.candidates.forEach(function (code) {
+    var existing = pickFor(code);
+    var checkedHere = existing && existing.role === tier;
+    var usedElsewhere = existing && existing.role !== tier;
+
+    var clashReason = null;
+    var picks = chosenCodes();
+    for (var i = 0; i < picks.length; i++) {
+      if (picks[i] !== code && EHESP.clash(SPEC, code, picks[i])) {
+        var sharedWeek = modWeeks(code).filter(function (w) { return modWeeks(picks[i]).indexOf(w) !== -1; })[0];
+        clashReason = 'Clashes with ' + picks[i] + ' in ' + (sharedWeek || 'a shared week');
+        break;
+      }
+    }
+
+    var disabledReason = null;
+    if (usedElsewhere) disabledReason = 'Already chosen at ' + existing.role;
+    else if (!checkedHere && atLimit) disabledReason = 'Tier already at ' + info.select_n;
+    else if (!checkedHere && clashReason) disabledReason = clashReason;
+
+    card.appendChild(modRow({
+      code: code, role: tier,
+      checked: !!checkedHere,
+      disabled: !!disabledReason,
+      reason: disabledReason
+    }));
+  });
+
+  return card;
+}
+
+function renderLockedTeaser(tier, info, stepNo) {
+  return el('section', { class: 'card locked-teaser', 'aria-disabled': 'true' }, [
+    el('h2', null, [
+      el('span', { class: 'step-pill', text: 'Step ' + stepNo }),
+      document.createTextNode(' ' + tier),
+      el('span', { class: 'count-pill', text: '0 / ' + info.select_n })
+    ]),
+    el('p', { class: 'sub', text: 'Complete the previous step to unlock.' })
+  ]);
+}
+
+function renderSupraCard(trk) {
+  var card = el('section', { class: 'card', 'aria-labelledby': 'hSupra' }, [
+    el('h2', { id: 'hSupra' }, [
+      el('span', { class: 'step-pill', text: 'Optional' }),
+      document.createTextNode(' Supra modules')
+    ]),
+    el('p', { class: 'sub', text: 'Optional extras. Only candidates that do not clash with your current selection are enabled.' })
+  ]);
+
+  trk.supra.forEach(function (m) {
+    var existing = pickFor(m.code);
+    var checked = existing && existing.role === 'supra';
+    var usedElsewhere = existing && existing.role !== 'supra';
+
+    var clashReason = null;
+    var picks = chosenCodes();
+    for (var i = 0; i < picks.length; i++) {
+      if (picks[i] !== m.code && EHESP.clash(SPEC, m.code, picks[i])) {
+        var sharedWeek = modWeeks(m.code).filter(function (w) { return modWeeks(picks[i]).indexOf(w) !== -1; })[0];
+        clashReason = 'Clashes with ' + picks[i] + ' in ' + (sharedWeek || 'a shared week');
+        break;
+      }
+    }
+
+    var disabledReason = null;
+    if (usedElsewhere) disabledReason = 'Already chosen at ' + existing.role;
+    else if (!checked && clashReason) disabledReason = clashReason;
+
+    card.appendChild(modRow({
+      code: m.code, role: 'supra',
+      checked: !!checked,
+      disabled: !!disabledReason,
+      reason: disabledReason
+    }));
+  });
+
+  return card;
+}
+
+function modRow(opts) {
+  var m = MM[opts.code];
+  var row = el('div', { class: 'mod' + (opts.locked ? ' locked' : '') + (opts.disabled ? ' disabled' : '') });
+  var check = el('input', { type: 'checkbox', class: 'mod-check', 'aria-label': opts.code + ' ' + m.name });
+  check.checked = !!opts.checked;
+  if (opts.locked || opts.disabled) check.disabled = true;
+  check.addEventListener('change', function () {
+    if (this.checked) setPick(opts.code, opts.role);
+    else unsetPick(opts.code);
+    render();
+  });
+
+  var headChildren = [
+    el('span', { class: 'mod-code', text: opts.code }),
+    el('span', { class: 'mod-name', text: m.name })
+  ];
+  if (opts.locked) headChildren.push(el('span', { class: 'lock-tag', text: 'mandatory' }));
+  headChildren.push(el('span', { class: 'ects-tag', text: m.ects + ' ECTS' }));
+
+  var body = el('div', { class: 'mod-body' }, [
+    el('div', { class: 'mod-head' }, headChildren),
+    el('div', { class: 'mod-meta', text: m.teaching_weeks.join(', ') })
+  ]);
+  if (opts.reason) body.appendChild(el('div', { class: 'mod-reason', text: opts.reason }));
+
+  row.appendChild(check);
+  row.appendChild(body);
   return row;
 }
 
-function renderSteps(){
-  var host=document.getElementById('steps'); host.innerHTML='';
-  document.getElementById('floor').textContent = state.track? ('floor '+SPEC.tracks[state.track].ects_floor) : '';
-  if(!state.track){ renderSummary(); return; }
-  var t=SPEC.tracks[state.track];
+function renderReview() {
+  var trk = SPEC.tracks[state.track];
+  var box = document.getElementById('reviewSummary');
+  box.innerHTML = '';
 
-  // ensure mandatory are auto-picked
-  t.mandatory.forEach(function(m){ if(!hasCode(m.code)) state.picks.push({code:m.code, role:'mandatory'}); });
+  var groups = [];
+  groups.push({ name: 'Mandatory', role: 'mandatory', cls: 'mandatory' });
+  Object.keys(trk.electives).forEach(function (tier) { groups.push({ name: tier, role: tier, cls: '' }); });
+  if (trk.supra && trk.supra.length) groups.push({ name: 'Supra (optional)', role: 'supra', cls: 'supra' });
 
-  // mandatory card (locked)
-  var mc=el('div',{class:'card'}); mc.appendChild(el('h2',null,'Mandatory modules (auto-selected)'));
-  t.mandatory.forEach(function(m){ mc.appendChild(modRow(m.code,'mandatory',true,false,true)); });
-  host.appendChild(mc);
-
-  // staged elective tiers - reveal next only when current is exactly satisfied
-  var tiers=Object.keys(t.electives); var unlocked=true;
-  tiers.forEach(function(tier){
-    if(!unlocked) return;
-    var info=t.electives[tier];
-    var card=el('div',{class:'card'});
-    card.appendChild(el('h2',null,tier+' &mdash; pick exactly '+info.select_n+' <span class="pill">'+countRole(tier)+'/'+info.select_n+'</span>'));
-    var atLimit = countRole(tier)>=info.select_n;
-    info.candidates.forEach(function(code){
-      var checked=hasCode(code) && state.picks.filter(function(p){return p.code===code;})[0].role===tier;
-      // disable if: not chosen and (tier full) OR clashes with current selection OR already used in another role
-      var usedElsewhere = hasCode(code) && !checked;
-      var clashes=false; var cc=chosenCodes();
-      for(var i=0;i<cc.length;i++){ if(cc[i]!==code && EHESP.clash(SPEC,code,cc[i])){clashes=true;break;} }
-      var disabled = !checked && (atLimit || clashes || usedElsewhere);
-      card.appendChild(modRow(code, tier, checked, disabled, false));
-    });
-    host.appendChild(card);
-    if(countRole(tier)!==info.select_n) unlocked=false;   // gate next tier
+  groups.forEach(function (g) {
+    var inGroup = state.picks.filter(function (p) { return p.role === g.role; });
+    var groupEl = el('div', { class: 'review-group' }, [
+      el('h3', { text: g.name }),
+      el('div', { class: 'review-list' }, inGroup.length
+        ? inGroup.map(function (p) { return el('span', { class: 'review-pill ' + g.cls, text: p.code + '  ·  ' + ectsOf(p.code) + ' ECTS' }); })
+        : [el('span', { class: 'review-pill', text: '— none —' })]
+      )
+    ]);
+    box.appendChild(groupEl);
   });
 
-  // supra (optional) only after all tiers satisfied
-  if(unlocked && t.supra.length){
-    var sc=el('div',{class:'card'}); sc.appendChild(el('h2',null,'Supra (optional extras, only if no clash)'));
-    t.supra.forEach(function(m){
-      var checked=hasCode(m.code) && state.picks.filter(function(p){return p.code===m.code;})[0].role==='supra';
-      var clashes=false, cc=chosenCodes();
-      for(var i=0;i<cc.length;i++){ if(cc[i]!==m.code && EHESP.clash(SPEC,m.code,cc[i])){clashes=true;break;} }
-      sc.appendChild(modRow(m.code,'supra',checked,!checked&&clashes,false));
-    });
-    host.appendChild(sc);
+  var statusBox = document.getElementById('statusPanel');
+  statusBox.innerHTML = '';
+  var res = EHESP.validateSelection(SPEC, state.track, state.picks, { ectsCeiling: APP_CONFIG.ectsCeiling });
+  if (res.ok) {
+    statusBox.appendChild(el('div', { class: 'status-ok', text: 'All rules satisfied — ready to submit.' }));
+  } else {
+    var viols = el('div', { class: 'viols' }, [
+      el('p', { class: 'viols-title', text: res.violations.length + ' issue' + (res.violations.length === 1 ? '' : 's') + ' to resolve' }),
+      el('ul', null, res.violations.map(function (v) { return el('li', { text: v }); }))
+    ]);
+    statusBox.appendChild(viols);
   }
-  renderSummary();
 }
 
-function renderSummary(){
-  var sumDiv=document.getElementById('summary'), violDiv=document.getElementById('violations'), btn=document.getElementById('submit');
-  if(!state.track){ sumDiv.textContent='Choose a track to begin.'; document.getElementById('total').textContent='0'; btn.disabled=true; violDiv.innerHTML=''; return; }
-  var total=0; state.picks.forEach(function(p){ total+=ectsOf(p.code); });
-  document.getElementById('total').textContent=total;
-  sumDiv.innerHTML = state.picks.map(function(p){ return p.code+' <small>('+p.role+')</small>'; }).join(', ');
-  var res = EHESP.validateSelection(SPEC, state.track, state.picks, {ectsCeiling:APP_CONFIG.ectsCeiling});
-  if(res.ok){ violDiv.innerHTML='<div class="good">All rules satisfied. You can submit.</div>'; btn.disabled=false; }
-  else { violDiv.innerHTML=res.violations.map(function(x){return '<div class="viol">- '+x+'</div>';}).join(''); btn.disabled=true; }
+/* ---------- Stepper ---------- */
+function stepSequence() {
+  var seq = [{ key: 'identity', label: 'Details' }, { key: 'track', label: 'Track' }];
+  if (state.track) {
+    seq.push({ key: 'mandatory', label: 'Mandatory' });
+    Object.keys(SPEC.tracks[state.track].electives).forEach(function (t) {
+      seq.push({ key: 't:' + t, label: t });
+    });
+    if (SPEC.tracks[state.track].supra && SPEC.tracks[state.track].supra.length) seq.push({ key: 'supra', label: 'Supra' });
+    seq.push({ key: 'review', label: 'Review' });
+  }
+  return seq;
 }
 
-document.getElementById('submit').addEventListener('click', function(){
-  var first=document.getElementById('first').value.trim();
-  var last=document.getElementById('last').value.trim();
-  var email=document.getElementById('email').value.trim().toLowerCase();
-  if(!first||!last||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ alert('Please enter your name and a valid email.'); return; }
-  var res = EHESP.validateSelection(SPEC, state.track, state.picks, {ectsCeiling:APP_CONFIG.ectsCeiling});
-  if(!res.ok){ alert('Selection is not valid yet.'); return; }
-  var payload = { firstName:first, lastName:last, email:email, track:state.track,
-                  picks:state.picks, totalEcts:res.totalEcts };
-  var btn=this; btn.disabled=true; btn.textContent='Submitting...';
-  // text/plain avoids a CORS preflight against Apps Script (see docs/SETUP.md)
-  fetch(APP_CONFIG.endpoint, { method:'POST', redirect:'follow',
-        headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) })
-    .then(function(r){ return r.json(); })
-    .then(function(data){ showResult(data); })
-    .catch(function(e){ showResult({ok:false, message:'Network error. Please try again. ('+e+')'}); btn.disabled=false; btn.textContent='Submit enrolment'; });
+function currentStepKey() {
+  if (!isIdentityComplete()) return 'identity';
+  if (!state.track) return 'track';
+  var trk = SPEC.tracks[state.track];
+  var tiers = Object.keys(trk.electives);
+  for (var i = 0; i < tiers.length; i++) {
+    if (countRole(tiers[i]) !== trk.electives[tiers[i]].select_n) return 't:' + tiers[i];
+  }
+  return 'review';
+}
+
+function isIdentityComplete() {
+  var first = (document.getElementById('first').value || '').trim();
+  var last = (document.getElementById('last').value || '').trim();
+  var email = (document.getElementById('email').value || '').trim();
+  return !!first && !!last && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+}
+
+function renderStepper() {
+  var seq = stepSequence();
+  var cur = currentStepKey();
+  var curIdx = seq.findIndex(function (s) { return s.key === cur; });
+  if (curIdx === -1) curIdx = 0;
+  var nav = document.getElementById('stepper');
+  nav.innerHTML = '';
+  seq.forEach(function (s, i) {
+    var cls = 'step-chip';
+    if (i < curIdx) cls += ' done';
+    else if (i === curIdx) cls += ' current';
+    nav.appendChild(el('div', { class: cls }, [
+      el('span', { class: 'step-num', text: String(i + 1) }),
+      document.createTextNode(s.label)
+    ]));
+  });
+  var compact = document.getElementById('stepperCompact');
+  compact.innerHTML = '';
+  compact.appendChild(document.createTextNode('Step ' + (curIdx + 1) + ' of ' + seq.length + ' — '));
+  compact.appendChild(el('span', { class: 'cur', text: seq[curIdx].label }));
+}
+
+/* ---------- Sticky bar ---------- */
+function renderBar() {
+  var total = 0;
+  state.picks.forEach(function (p) { total += ectsOf(p.code); });
+  document.getElementById('totalEcts').textContent = (total % 1 === 0 ? total.toFixed(0) : total.toFixed(1));
+
+  var floor = state.track ? SPEC.tracks[state.track].ects_floor : null;
+  document.getElementById('floorLabel').textContent = floor != null ? ('/ ' + floor + ' ECTS floor') : 'ECTS';
+
+  var pct = floor ? Math.min(100, (total / floor) * 100) : 0;
+  var fill = document.getElementById('progressFill');
+  fill.style.width = pct + '%';
+  fill.classList.toggle('met', floor != null && total >= floor);
+
+  var stepNow = document.getElementById('stepNow');
+  if (!state.track) {
+    stepNow.innerHTML = 'Select a track to begin';
+  } else {
+    var cur = currentStepKey();
+    if (cur.indexOf('t:') === 0) {
+      var tier = cur.slice(2);
+      var info = SPEC.tracks[state.track].electives[tier];
+      stepNow.innerHTML = '<b>' + tier + '</b> · pick ' + countRole(tier) + ' of ' + info.select_n;
+    } else if (cur === 'review') {
+      stepNow.innerHTML = '<b>Review</b>';
+    } else if (cur === 'identity') {
+      stepNow.innerHTML = '<b>Details</b> · complete your name and email';
+    } else if (cur === 'track') {
+      stepNow.innerHTML = '<b>Track</b>';
+    }
+  }
+
+  var btn = document.getElementById('submitBtn');
+  var canSubmit = false;
+  if (state.track && isIdentityComplete()) {
+    var res = EHESP.validateSelection(SPEC, state.track, state.picks, { ectsCeiling: APP_CONFIG.ectsCeiling });
+    canSubmit = res.ok;
+  }
+  btn.disabled = !canSubmit;
+}
+
+/* ============================================================
+   Identity inputs - re-render stepper + bar on change
+   ============================================================ */
+['first', 'last', 'email'].forEach(function (id) {
+  var input = document.getElementById(id);
+  input.addEventListener('input', function () {
+    if (id === 'email') {
+      var v = input.value.trim();
+      input.classList.toggle('invalid', !!v && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v));
+    }
+    renderStepper();
+    renderBar();
+  });
 });
 
-function showResult(data){
-  var box=document.getElementById('result'); box.classList.remove('hidden');
-  if(data.ok){ box.innerHTML='<h2 class="good">Enrolment registered</h2><p>'+(data.message||'A confirmation email has been sent to you.')+'</p>'; }
-  else { box.innerHTML='<h2 class="viol">Not registered</h2><p>'+(data.message||'Submission was rejected.')+'</p>'; document.getElementById('submit').disabled=false; document.getElementById('submit').textContent='Submit enrolment'; }
-  box.scrollIntoView({behavior:'smooth'});
+/* ============================================================
+   Submit
+   ============================================================ */
+document.getElementById('submitBtn').addEventListener('click', function () {
+  var first = document.getElementById('first').value.trim();
+  var last = document.getElementById('last').value.trim();
+  var email = document.getElementById('email').value.trim().toLowerCase();
+  if (!isIdentityComplete()) {
+    showResult({ ok: false, message: 'Please enter your first name, last name, and a valid email.' });
+    return;
+  }
+  var res = EHESP.validateSelection(SPEC, state.track, state.picks, { ectsCeiling: APP_CONFIG.ectsCeiling });
+  if (!res.ok) {
+    showResult({ ok: false, message: 'Selection failed validation: ' + res.violations.join('; ') });
+    return;
+  }
+  var payload = {
+    firstName: first, lastName: last, email: email,
+    track: state.track, picks: state.picks, totalEcts: res.totalEcts
+  };
+
+  var btn = this;
+  btn.disabled = true;
+  var prevText = btn.textContent;
+  btn.textContent = 'Submitting…';
+
+  // text/plain avoids a CORS preflight against Apps Script (see docs/SETUP.md)
+  fetch(APP_CONFIG.endpoint, {
+    method: 'POST',
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  })
+    .then(function (r) { return r.json(); })
+    .then(function (data) { showResult(data); })
+    .catch(function (e) {
+      showResult({ ok: false, message: 'Network error. Please try again. (' + e + ')' });
+    })
+    .finally(function () {
+      btn.disabled = false;
+      btn.textContent = prevText;
+      renderBar();
+    });
+});
+
+function showResult(data) {
+  var box = document.getElementById('result');
+  box.className = 'result ' + (data.ok ? 'ok' : 'bad');
+  box.innerHTML = '';
+  box.appendChild(el('h2', { text: data.ok ? 'Enrolment registered' : 'Not registered' }));
+  box.appendChild(el('p', { text: data.message || (data.ok
+    ? 'A confirmation email has been sent.'
+    : 'Submission was rejected.') }));
+  box.classList.remove('hidden');
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-// expose engine under EHESP namespace (validation.js attaches module.exports for node; in browser
-// the functions are global - wrap them so the UI code above can call EHESP.*)
-var EHESP = {
-  validateSelection: validateSelection,
-  clash: function(spec,a,b){ return ehespClash(ehespModuleIndex(spec), a, b); }
-};
-renderSteps();
+/* ============================================================
+   Initial paint
+   ============================================================ */
+render();
 </script>
 </body>
 </html>
