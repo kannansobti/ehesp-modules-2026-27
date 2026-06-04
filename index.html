@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EHESP Module Selection 2026-27</title>
+<!--
+  WORKING SKELETON. All validation rules are correct and live here via validation.js.
+  Claude Code: keep the logic and data flow intact; redesign/polish the UI freely
+  (frontend-design skill). Do NOT reimplement validateSelection - reuse it.
+  Set APP_CONFIG.endpoint to your deployed Apps Script web-app URL before going live.
+-->
+<style>
+  :root{--ink:#1f2937;--mut:#6b7280;--line:#e5e7eb;--bg:#f7f8fa;--accent:#2563eb;--ok:#15803d;--bad:#b91c1c}
+  *{box-sizing:border-box} body{font-family:system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:24px}
+  h1{font-size:1.3rem;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
+  .card h2{font-size:1rem;margin:0 0 10px}
+  label{display:block;font-size:.85rem;color:var(--mut);margin:8px 0 2px}
+  input,select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;font-size:1rem}
+  .mod{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+  .mod:last-child{border-bottom:none} .mod small{color:var(--mut)}
+  .mod.locked{opacity:.85} .mod.disabled{opacity:.45}
+  .bar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 0;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+  button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:1rem;cursor:pointer}
+  button[disabled]{background:#9ca3af;cursor:not-allowed}
+  .pill{font-size:.8rem;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;margin-left:6px}
+  .viol{color:var(--bad);font-size:.9rem;margin:4px 0}
+  .good{color:var(--ok)} .hidden{display:none}
+  .ects{font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Master Track &amp; Module Selection 2026-27</h1>
+  <p class="sub">Pick your track, then your modules. Mandatory modules are pre-selected. You cannot submit a combination that breaks the rules.</p>
+
+  <div class="card" id="who">
+    <h2>1. Your details</h2>
+    <label>First name</label><input id="first" />
+    <label>Last name</label><input id="last" />
+    <label>Email</label><input id="email" type="email" placeholder="name@ehesp.fr" />
+  </div>
+
+  <div class="card">
+    <h2>2. Track</h2>
+    <select id="track"><option value="">Select a track...</option></select>
+  </div>
+
+  <div id="steps"></div>
+
+  <div class="card" id="review">
+    <h2>Summary</h2>
+    <div id="summary">Choose a track to begin.</div>
+    <div id="violations"></div>
+  </div>
+
+  <div class="bar">
+    <div>Total: <span class="ects" id="total">0</span> ECTS <span class="pill" id="floor"></span></div>
+    <button id="submit" disabled>Submit enrolment</button>
+  </div>
+  <div id="result" class="card hidden"></div>
+</div>
+
+<script src="spec.js"></script>
+<script src="validation.js"></script>
+<script>
+var APP_CONFIG = {
+  // Paste the Apps Script web-app URL here after deploying apps-script/Code.gs:
+  endpoint: "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL",
+  ectsCeiling: null   // set a number to cap total ECTS, or leave null for floor-only
+};
+
+var MM = EHESPValidationIndex();            // module lookup
+function EHESPValidationIndex(){ var m={}; SPEC.modules.forEach(function(x){m[x.code]=x;}); return m; }
+function mod(c){ return MM[c]; }
+function ectsOf(c){ return MM[c]?MM[c].ects:0; }
+
+var state = { track:null, picks:[] };       // picks: [{code, role}]
+
+function el(tag, attrs, html){ var e=document.createElement(tag); if(attrs) for(var k in attrs) e.setAttribute(k,attrs[k]); if(html!=null) e.innerHTML=html; return e; }
+
+// populate track dropdown
+var tsel=document.getElementById('track');
+Object.keys(SPEC.tracks).forEach(function(t){ tsel.appendChild(el('option',{value:t},t)); });
+tsel.addEventListener('change', function(){ state.track=this.value||null; state.picks=[]; renderSteps(); });
+
+function chosenCodes(){ return state.picks.map(function(p){return p.code;}); }
+function countRole(role){ return state.picks.filter(function(p){return p.role===role;}).length; }
+function hasCode(c){ return chosenCodes().indexOf(c)!==-1; }
+function toggle(code, role, on){
+  state.picks = state.picks.filter(function(p){return p.code!==code;});
+  if(on) state.picks.push({code:code, role:role});
+  renderSteps();
+}
+
+function modRow(code, role, checked, disabled, locked){
+  var m=mod(code);
+  var row=el('div',{class:'mod'+(locked?' locked':'')+(disabled?' disabled':'')});
+  var box=el('input',{type:'checkbox'}); box.checked=checked; if(disabled||locked) box.disabled=true;
+  box.addEventListener('change', function(){ toggle(code, role, this.checked); });
+  var label=el('div',null,'<strong>'+code+'</strong> '+m.name+' <small>('+m.ects+' ECTS, '+m.teaching_weeks.join(', ')+')</small>');
+  row.appendChild(box); row.appendChild(label);
+  return row;
+}
+
+function renderSteps(){
+  var host=document.getElementById('steps'); host.innerHTML='';
+  document.getElementById('floor').textContent = state.track? ('floor '+SPEC.tracks[state.track].ects_floor) : '';
+  if(!state.track){ renderSummary(); return; }
+  var t=SPEC.tracks[state.track];
+
+  // ensure mandatory are auto-picked
+  t.mandatory.forEach(function(m){ if(!hasCode(m.code)) state.picks.push({code:m.code, role:'mandatory'}); });
+
+  // mandatory card (locked)
+  var mc=el('div',{class:'card'}); mc.appendChild(el('h2',null,'Mandatory modules (auto-selected)'));
+  t.mandatory.forEach(function(m){ mc.appendChild(modRow(m.code,'mandatory',true,false,true)); });
+  host.appendChild(mc);
+
+  // staged elective tiers - reveal next only when current is exactly satisfied
+  var tiers=Object.keys(t.electives); var unlocked=true;
+  tiers.forEach(function(tier){
+    if(!unlocked) return;
+    var info=t.electives[tier];
+    var card=el('div',{class:'card'});
+    card.appendChild(el('h2',null,tier+' &mdash; pick exactly '+info.select_n+' <span class="pill">'+countRole(tier)+'/'+info.select_n+'</span>'));
+    var atLimit = countRole(tier)>=info.select_n;
+    info.candidates.forEach(function(code){
+      var checked=hasCode(code) && state.picks.filter(function(p){return p.code===code;})[0].role===tier;
+      // disable if: not chosen and (tier full) OR clashes with current selection OR already used in another role
+      var usedElsewhere = hasCode(code) && !checked;
+      var clashes=false; var cc=chosenCodes();
+      for(var i=0;i<cc.length;i++){ if(cc[i]!==code && EHESP.clash(SPEC,code,cc[i])){clashes=true;break;} }
+      var disabled = !checked && (atLimit || clashes || usedElsewhere);
+      card.appendChild(modRow(code, tier, checked, disabled, false));
+    });
+    host.appendChild(card);
+    if(countRole(tier)!==info.select_n) unlocked=false;   // gate next tier
+  });
+
+  // supra (optional) only after all tiers satisfied
+  if(unlocked && t.supra.length){
+    var sc=el('div',{class:'card'}); sc.appendChild(el('h2',null,'Supra (optional extras, only if no clash)'));
+    t.supra.forEach(function(m){
+      var checked=hasCode(m.code) && state.picks.filter(function(p){return p.code===m.code;})[0].role==='supra';
+      var clashes=false, cc=chosenCodes();
+      for(var i=0;i<cc.length;i++){ if(cc[i]!==m.code && EHESP.clash(SPEC,m.code,cc[i])){clashes=true;break;} }
+      sc.appendChild(modRow(m.code,'supra',checked,!checked&&clashes,false));
+    });
+    host.appendChild(sc);
+  }
+  renderSummary();
+}
+
+function renderSummary(){
+  var sumDiv=document.getElementById('summary'), violDiv=document.getElementById('violations'), btn=document.getElementById('submit');
+  if(!state.track){ sumDiv.textContent='Choose a track to begin.'; document.getElementById('total').textContent='0'; btn.disabled=true; violDiv.innerHTML=''; return; }
+  var total=0; state.picks.forEach(function(p){ total+=ectsOf(p.code); });
+  document.getElementById('total').textContent=total;
+  sumDiv.innerHTML = state.picks.map(function(p){ return p.code+' <small>('+p.role+')</small>'; }).join(', ');
+  var res = EHESP.validateSelection(SPEC, state.track, state.picks, {ectsCeiling:APP_CONFIG.ectsCeiling});
+  if(res.ok){ violDiv.innerHTML='<div class="good">All rules satisfied. You can submit.</div>'; btn.disabled=false; }
+  else { violDiv.innerHTML=res.violations.map(function(x){return '<div class="viol">- '+x+'</div>';}).join(''); btn.disabled=true; }
+}
+
+document.getElementById('submit').addEventListener('click', function(){
+  var first=document.getElementById('first').value.trim();
+  var last=document.getElementById('last').value.trim();
+  var email=document.getElementById('email').value.trim().toLowerCase();
+  if(!first||!last||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ alert('Please enter your name and a valid email.'); return; }
+  var res = EHESP.validateSelection(SPEC, state.track, state.picks, {ectsCeiling:APP_CONFIG.ectsCeiling});
+  if(!res.ok){ alert('Selection is not valid yet.'); return; }
+  var payload = { firstName:first, lastName:last, email:email, track:state.track,
+                  picks:state.picks, totalEcts:res.totalEcts };
+  var btn=this; btn.disabled=true; btn.textContent='Submitting...';
+  // text/plain avoids a CORS preflight against Apps Script (see docs/SETUP.md)
+  fetch(APP_CONFIG.endpoint, { method:'POST', redirect:'follow',
+        headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) })
+    .then(function(r){ return r.json(); })
+    .then(function(data){ showResult(data); })
+    .catch(function(e){ showResult({ok:false, message:'Network error. Please try again. ('+e+')'}); btn.disabled=false; btn.textContent='Submit enrolment'; });
+});
+
+function showResult(data){
+  var box=document.getElementById('result'); box.classList.remove('hidden');
+  if(data.ok){ box.innerHTML='<h2 class="good">Enrolment registered</h2><p>'+(data.message||'A confirmation email has been sent to you.')+'</p>'; }
+  else { box.innerHTML='<h2 class="viol">Not registered</h2><p>'+(data.message||'Submission was rejected.')+'</p>'; document.getElementById('submit').disabled=false; document.getElementById('submit').textContent='Submit enrolment'; }
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+// expose engine under EHESP namespace (validation.js attaches module.exports for node; in browser
+// the functions are global - wrap them so the UI code above can call EHESP.*)
+var EHESP = {
+  validateSelection: validateSelection,
+  clash: function(spec,a,b){ return ehespClash(ehespModuleIndex(spec), a, b); }
+};
+renderSteps();
+</script>
+</body>
+</html>
