@@ -1005,8 +1005,20 @@ document.getElementById('submitBtn').addEventListener('click', function () {
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   })
-    .then(function (r) { return r.json(); })
-    .then(function (data) { showResult(data); })
+    .then(function (r) { return r.text().then(function (t) { return { status: r.status, body: t }; }); })
+    .then(function (info) {
+      try {
+        var data = JSON.parse(info.body);
+        showResult(data);
+      } catch (e) {
+        console.error('Non-JSON response (HTTP ' + info.status + '):', info.body);
+        showResult({
+          ok: false,
+          message: 'Server returned non-JSON (HTTP ' + info.status + '). First 200 chars: ' +
+                   (info.body || '').replace(/\s+/g, ' ').slice(0, 200)
+        });
+      }
+    })
     .catch(function (e) {
       showResult({ ok: false, message: 'Network error. Please try again. (' + e + ')' });
     })
