@@ -15,7 +15,7 @@
  */
 
 var CONFIG = {
-  sheetId:    'REPLACE_WITH_GOOGLE_SHEET_ID',   // the Sheet that stores responses
+  sheetId:    '1HyAZWH7bjdfXEUmi8v3LZ79aXu07fwUzpC2_eLWqByU',   // the Sheet that stores responses
   sheetName:  'Responses',
   dedupMode:  'overwrite',     // 'overwrite' = latest wins | 'lock' = first is final | 'deadline'
   deadline:   '2026-07-31T23:59:59Z', // used only when dedupMode === 'deadline'
