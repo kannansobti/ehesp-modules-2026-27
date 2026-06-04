@@ -1,0 +1,1184 @@
+// AUTO-GENERATED from track_selection_spec_2026-27_FIXED.json. Single source of truth for rules + data.
+// Do not hand-edit module/track values here; change the JSON and regenerate.
+var SPEC = {
+  "meta": {
+    "source": "modules_track_selection_2026-27.xlsx",
+    "generated": "2026-06-04",
+    "designation_vocab": [
+      "Mandatory",
+      "Elective1..5",
+      "Supra",
+      "NO"
+    ],
+    "clash_basis": "teaching_weeks set-intersection (NOT start-date equality)",
+    "clash_policy": "ADV_EXEMPT",
+    "clash_rule": "Two selected modules clash if their teaching-week sets intersect, EXCEPT the parallel Advanced-Module block (202-206) which runs concurrently by design.",
+    "fixes_applied": [
+      {
+        "fix": "1. Clash policy fixed",
+        "severity": "HIGH",
+        "detail": "Adopted ADV_EXEMPT as the official rule. Under the literal all-pairs reading, 0/8 tracks were solvable."
+      },
+      {
+        "fix": "2. ECTS floor EPH_EPI/ISB",
+        "severity": "HIGH",
+        "detail": "Floor 36 -> 33. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor EPH_HECC",
+        "severity": "HIGH",
+        "detail": "Floor 36 -> 33. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_EPI",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_ISB",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_HECC",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_HPM",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_PHP",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "2. ECTS floor MPH_GEN",
+        "severity": "HIGH",
+        "detail": "Floor 33 -> 36. Every EPH rule text sums to 33 and every MPH rule text to 36; the stated floors were inverted."
+      },
+      {
+        "fix": "3. EPH_HECC Elective1",
+        "severity": "NEEDS SIGN-OFF",
+        "detail": "Pick 2 -> 3 Elective1 so the track reaches the 33 floor (its modules max out at 30 with 2). Deviates from rule text \"two elective1\". Alternative: set EPH_HECC floor to 30."
+      },
+      {
+        "fix": "4. MPH_PHP clash",
+        "severity": "NEEDS SIGN-OFF",
+        "detail": "Module 228 moved from ['2026-W43'] to 2026-W47 (proposed). 209 and 228 were both mandatory in W43 and cannot share a week. Replace with the real timetable date if different."
+      }
+    ],
+    "tier_count_rule": "exactly_N (each tier requires exactly its select_n; confirm vs at-least-N)"
+  },
+  "modules": [
+    {
+      "code": "BioUp",
+      "name": "Biostastistics Upgrade",
+      "coordinator": "Nolwenn Le Meur",
+      "ects": 3.0,
+      "start": "2026-08-24",
+      "end": "2026-08-28",
+      "teaching_weeks": [
+        "2026-W35"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "202",
+      "name": "Advanced Module Prevention & Health Promotion",
+      "coordinator": "Kathy McColl",
+      "ects": 3.0,
+      "start": "2026-09-07",
+      "end": "2026-10-09",
+      "teaching_weeks": [
+        "2026-W37",
+        "2026-W38",
+        "2026-W39",
+        "2026-W40",
+        "2026-W41"
+      ],
+      "n_weeks": 5
+    },
+    {
+      "code": "203",
+      "name": "Advanced Module Epidemiology",
+      "coordinator": "M\u00e9lanie Bertin",
+      "ects": 3.0,
+      "start": "2026-09-07",
+      "end": "2026-10-09",
+      "teaching_weeks": [
+        "2026-W37",
+        "2026-W38",
+        "2026-W39",
+        "2026-W40",
+        "2026-W41"
+      ],
+      "n_weeks": 5
+    },
+    {
+      "code": "204",
+      "name": "Advanced Module Biostatistics",
+      "coordinator": "Pascal Cr\u00e9pey",
+      "ects": 3.0,
+      "start": "2026-09-07",
+      "end": "2026-10-09",
+      "teaching_weeks": [
+        "2026-W37",
+        "2026-W38",
+        "2026-W39",
+        "2026-W40",
+        "2026-W41"
+      ],
+      "n_weeks": 5
+    },
+    {
+      "code": "205",
+      "name": "Advanced Module Health Policy & Management",
+      "coordinator": "Odessa Petit dit Dariel",
+      "ects": 3.0,
+      "start": "2026-09-07",
+      "end": "2026-10-09",
+      "teaching_weeks": [
+        "2026-W37",
+        "2026-W38",
+        "2026-W39",
+        "2026-W40",
+        "2026-W41"
+      ],
+      "n_weeks": 5
+    },
+    {
+      "code": "206",
+      "name": "Advanced Module Health and Environment in a context of Climate Change",
+      "coordinator": "Aurore Gely-Pernot",
+      "ects": 3.0,
+      "start": "2026-09-07",
+      "end": "2026-10-09",
+      "teaching_weeks": [
+        "2026-W37",
+        "2026-W38",
+        "2026-W39",
+        "2026-W40",
+        "2026-W41"
+      ],
+      "n_weeks": 5
+    },
+    {
+      "code": "209",
+      "name": "Health Promotion & Education",
+      "coordinator": "Eric Breton",
+      "ects": 3.0,
+      "start": "2026-10-19",
+      "end": "2026-10-23",
+      "teaching_weeks": [
+        "2026-W43"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "223",
+      "name": "Design & Concepts",
+      "coordinator": "Courtney Dow",
+      "ects": 3.0,
+      "start": "2026-10-19",
+      "end": "2026-10-23",
+      "teaching_weeks": [
+        "2026-W43"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "228",
+      "name": "Managing Community Program Implementation",
+      "coordinator": "Odessa Petit dit Dariel",
+      "ects": 3.0,
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "teaching_weeks": [
+        "2026-W47"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "218",
+      "name": "Identification & Diagnosis of Environmental Health Problems in a Territory",
+      "coordinator": "Ianis Delpla & Bertrand Lefebvre",
+      "ects": 3.0,
+      "start": "2026-10-19",
+      "end": "2026-10-23",
+      "teaching_weeks": [
+        "2026-W43"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "215",
+      "name": "Introduction to R for Data Science in Public Health",
+      "coordinator": "Nolwenn Le Meur",
+      "ects": 3.0,
+      "start": "2026-10-26",
+      "end": "2026-10-30",
+      "teaching_weeks": [
+        "2026-W44"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "220",
+      "name": "Health Communication",
+      "coordinator": "Jocelyn Raude & Jessica Mudry",
+      "ects": 3.0,
+      "start": "2026-10-26",
+      "end": "2026-10-30",
+      "teaching_weeks": [
+        "2026-W44"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "210",
+      "name": "Infectious Disease Epidemiology",
+      "coordinator": "Tiffany Harris",
+      "ects": 3.0,
+      "start": "2026-11-02",
+      "end": "2026-11-06",
+      "teaching_weeks": [
+        "2026-W45"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "211",
+      "name": "Chronic Disease Epidemiology",
+      "coordinator": "Juste Goungouna",
+      "ects": 3.0,
+      "start": "2026-11-02",
+      "end": "2026-11-06",
+      "teaching_weeks": [
+        "2026-W45"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "213",
+      "name": "Health Economics",
+      "coordinator": "Nicolas Sirven",
+      "ects": 3.0,
+      "start": "2026-11-02",
+      "end": "2026-11-06",
+      "teaching_weeks": [
+        "2026-W45"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "233",
+      "name": "GIS & Environmental Health",
+      "coordinator": "Bertrand Lefebvre",
+      "ects": 3.0,
+      "start": "2026-11-02",
+      "end": "2026-11-06",
+      "teaching_weeks": [
+        "2026-W45"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "212",
+      "name": "Politics of Health Financing",
+      "coordinator": "Mathias Brunn",
+      "ects": 3.0,
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "teaching_weeks": [
+        "2026-W47"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "219",
+      "name": "Integration of Environmental Health in Policies, Projects & Interventions",
+      "coordinator": "Anne Rou\u00e9 Le Gall",
+      "ects": 3.0,
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "teaching_weeks": [
+        "2026-W47"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "231",
+      "name": "Spatial Stastistical Analysis",
+      "coordinator": "Cindy Padilla",
+      "ects": 3.0,
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "teaching_weeks": [
+        "2026-W47"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "226",
+      "name": "Health Care Management",
+      "coordinator": "Silvije \u0160egulja",
+      "ects": 3.0,
+      "start": "2026-11-30",
+      "end": "2026-12-04",
+      "teaching_weeks": [
+        "2026-W49"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "240",
+      "name": "Advanced Quantitative Methods in Population Mental Health",
+      "coordinator": "Michael Mireku",
+      "ects": 3.0,
+      "start": "2026-11-30",
+      "end": "2026-12-04",
+      "teaching_weeks": [
+        "2026-W49"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "214",
+      "name": "Data Mining & Longitudinal Data",
+      "coordinator": "M\u00e9lanie Bertin",
+      "ects": 3.0,
+      "start": "2026-12-07",
+      "end": "2026-12-11",
+      "teaching_weeks": [
+        "2026-W50"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "217",
+      "name": "Impact Assessment in Environmental Health",
+      "coordinator": "Tarik Benmarhnia",
+      "ects": 3.0,
+      "start": "2026-12-07",
+      "end": "2026-12-11",
+      "teaching_weeks": [
+        "2026-W50"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "235",
+      "name": "Humanitarian Health in Crisis Situations",
+      "coordinator": "Bill Gentry",
+      "ects": 3.0,
+      "start": "2026-12-07",
+      "end": "2026-12-11",
+      "teaching_weeks": [
+        "2026-W50"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "230",
+      "name": "Multi-Level Analysis",
+      "coordinator": "Jay Kaufman",
+      "ects": 3.0,
+      "start": "2026-12-14",
+      "end": "2026-12-18",
+      "teaching_weeks": [
+        "2026-W51"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "239",
+      "name": "Health Promotion & Disease Prevention Program & Policy Planning",
+      "coordinator": "Eric Breton",
+      "ects": 3.0,
+      "start": "2026-12-14",
+      "end": "2026-12-18",
+      "teaching_weeks": [
+        "2026-W51"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "241",
+      "name": "Monitoring and following Environmental Health actions",
+      "coordinator": "Pauline Rousseau Gueutin",
+      "ects": 1.5,
+      "start": "2026-12-14",
+      "end": "2026-12-16",
+      "teaching_weeks": [
+        "2026-W51"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "208",
+      "name": "Evaluation of Public Health Programs",
+      "coordinator": "Julien Mousqu\u00e8s",
+      "ects": 3.0,
+      "start": "2027-01-04",
+      "end": "2027-01-08",
+      "teaching_weeks": [
+        "2027-W01"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "224",
+      "name": "Analysis in Epidemiology I",
+      "coordinator": "Rebecca Kehm",
+      "ects": 3.0,
+      "start": "2027-01-04",
+      "end": "2027-01-08",
+      "teaching_weeks": [
+        "2027-W01"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "242",
+      "name": "Case Study in EOHS",
+      "coordinator": "Aurore Gely-Pernot",
+      "ects": 4.5,
+      "start": "2027-01-06",
+      "end": "2027-01-15",
+      "teaching_weeks": [
+        "2027-W01",
+        "2027-W02"
+      ],
+      "n_weeks": 2
+    },
+    {
+      "code": "221",
+      "name": "Prevention & Lifestyle Behaviour Change",
+      "coordinator": "To be confirmed",
+      "ects": 3.0,
+      "start": "2027-01-11",
+      "end": "2027-01-15",
+      "teaching_weeks": [
+        "2027-W02"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "225",
+      "name": "Analysis in Epidemiology II",
+      "coordinator": "Rebecca Kehm",
+      "ects": 3.0,
+      "start": "2027-01-11",
+      "end": "2027-01-15",
+      "teaching_weeks": [
+        "2027-W02"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "227",
+      "name": "Health Policies & Health System Analysis in LMICs",
+      "coordinator": "Bertrand Lefebvre",
+      "ects": 3.0,
+      "start": "2027-01-18",
+      "end": "2027-01-22",
+      "teaching_weeks": [
+        "2027-W03"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "229",
+      "name": "Modelling of Infectious Diseases",
+      "coordinator": "Pascal Cr\u00e9pey",
+      "ects": 3.0,
+      "start": "2027-01-18",
+      "end": "2027-01-22",
+      "teaching_weeks": [
+        "2027-W03"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "238",
+      "name": "Perinatal & Pediatric Epidemiology",
+      "coordinator": "C\u00e9cile Chevrier",
+      "ects": 3.0,
+      "start": "2027-01-18",
+      "end": "2027-01-22",
+      "teaching_weeks": [
+        "2027-W03"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "201",
+      "name": "Cross-Disciplinary Module - Global Health",
+      "coordinator": "Jim Thomas",
+      "ects": 3.0,
+      "start": "2027-02-01",
+      "end": "2027-02-05",
+      "teaching_weeks": [
+        "2027-W05"
+      ],
+      "n_weeks": 1
+    },
+    {
+      "code": "IntEPH",
+      "name": "Integration Module EPH",
+      "coordinator": "M\u00e9lanie Bertin & Ianis Delpla",
+      "ects": 3.0,
+      "start": "2027-06-14",
+      "end": "2027-06-25",
+      "teaching_weeks": [
+        "2027-W24",
+        "2027-W25"
+      ],
+      "n_weeks": 2
+    }
+  ],
+  "tracks": {
+    "EPH_EPI/ISB": {
+      "level": "EPH",
+      "ects_floor": 33,
+      "mandatory": [
+        {
+          "code": "203",
+          "name": "Advanced Module Epidemiology",
+          "ects": 3.0
+        },
+        {
+          "code": "204",
+          "name": "Advanced Module Biostatistics",
+          "ects": 3.0
+        },
+        {
+          "code": "223",
+          "name": "Design & Concepts",
+          "ects": 3.0
+        },
+        {
+          "code": "IntEPH",
+          "name": "Integration Module EPH",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "202",
+            "205",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 5,
+          "available": 7,
+          "candidates": [
+            "215",
+            "231",
+            "214",
+            "230",
+            "224",
+            "225",
+            "229"
+          ]
+        },
+        "Elective3": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "210",
+            "211",
+            "238"
+          ]
+        }
+      },
+      "supra": [
+        {
+          "code": "BioUp",
+          "name": "Biostastistics Upgrade"
+        },
+        {
+          "code": "233",
+          "name": "GIS & Environmental Health"
+        },
+        {
+          "code": "240",
+          "name": "Advanced Quantitative Methods in Population Mental Health"
+        }
+      ],
+      "rule_text": "Mandatory Modules for 12 ECTS. One Elective1 modules for 3 ECTS. Five Elective2 modules for 15 ECTS. One Elective3 module for 3 ECTS. Supra can be selected among electives."
+    },
+    "EPH_HECC": {
+      "level": "EPH",
+      "ects_floor": 33,
+      "mandatory": [
+        {
+          "code": "204",
+          "name": "Advanced Module Biostatistics",
+          "ects": 3.0
+        },
+        {
+          "code": "206",
+          "name": "Advanced Module Health and Environment in a context of Climate Change",
+          "ects": 3.0
+        },
+        {
+          "code": "218",
+          "name": "Identification & Diagnosis of Environmental Health Problems in a Territory",
+          "ects": 3.0
+        },
+        {
+          "code": "233",
+          "name": "GIS & Environmental Health",
+          "ects": 3.0
+        },
+        {
+          "code": "219",
+          "name": "Integration of Environmental Health in Policies, Projects & Interventions",
+          "ects": 3.0
+        },
+        {
+          "code": "241",
+          "name": "Monitoring and following Environmental Health actions",
+          "ects": 1.5
+        },
+        {
+          "code": "242",
+          "name": "Case Study in EOHS",
+          "ects": 4.5
+        },
+        {
+          "code": "IntEPH",
+          "name": "Integration Module EPH",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 3,
+          "available": 3,
+          "candidates": [
+            "215",
+            "226",
+            "229"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "Mandatory modules for 24 ECTS and two elective1 modules for 6 ECTS. EPH Integration module for 3 ECTS."
+    },
+    "MPH_EPI": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "203",
+          "name": "Advanced Module Epidemiology",
+          "ects": 3.0
+        },
+        {
+          "code": "204",
+          "name": "Advanced Module Biostatistics",
+          "ects": 3.0
+        },
+        {
+          "code": "223",
+          "name": "Design & Concepts",
+          "ects": 3.0
+        },
+        {
+          "code": "224",
+          "name": "Analysis in Epidemiology I",
+          "ects": 3.0
+        },
+        {
+          "code": "225",
+          "name": "Analysis in Epidemiology II",
+          "ects": 3.0
+        },
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "202",
+            "205",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "210",
+            "211",
+            "238"
+          ]
+        },
+        "Elective3": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "231",
+            "214",
+            "230"
+          ]
+        },
+        "Elective4/Elective3/Elective2": {
+          "select_n": 1,
+          "available": 7,
+          "candidates": [
+            "215",
+            "231",
+            "214",
+            "230",
+            "210",
+            "211",
+            "238"
+          ]
+        },
+        "Elective5": {
+          "select_n": 2,
+          "available": 15,
+          "candidates": [
+            "209",
+            "228",
+            "218",
+            "213",
+            "233",
+            "212",
+            "219",
+            "226",
+            "240",
+            "217",
+            "235",
+            "239",
+            "241",
+            "227",
+            "229"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "Mandatory modules for 18 ECTS. One Elective1 module for 3 ECTS. One Elective2 module for 3 ECTS. One Elective3 module for 3 ETCS. One Elective 4 or Elective3 or Elective2 module for 3 ECTS. Two elective5 modules for 6 ECTS."
+    },
+    "MPH_ISB": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "203",
+          "name": "Advanced Module Epidemiology",
+          "ects": 3.0
+        },
+        {
+          "code": "204",
+          "name": "Advanced Module Biostatistics",
+          "ects": 3.0
+        },
+        {
+          "code": "231",
+          "name": "Spatial Stastistical Analysis",
+          "ects": 3.0
+        },
+        {
+          "code": "214",
+          "name": "Data Mining & Longitudinal Data",
+          "ects": 3.0
+        },
+        {
+          "code": "230",
+          "name": "Multi-Level Analysis",
+          "ects": 3.0
+        },
+        {
+          "code": "229",
+          "name": "Modelling of Infectious Diseases",
+          "ects": 3.0
+        },
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "202",
+            "205",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 3,
+          "available": 6,
+          "candidates": [
+            "223",
+            "215",
+            "233",
+            "240",
+            "224",
+            "225"
+          ]
+        },
+        "Elective3/Elective2": {
+          "select_n": 1,
+          "available": 16,
+          "candidates": [
+            "228",
+            "218",
+            "220",
+            "210",
+            "211",
+            "213",
+            "226",
+            "208",
+            "242",
+            "221",
+            "223",
+            "215",
+            "233",
+            "240",
+            "224",
+            "225"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "Mandatory modules for 21 ECTS. One Elective1 module for 3 ECTS. Three Elective2 modules for 9 ECTS. One Elective3 module or Elective2 module for 3 ECTS."
+    },
+    "MPH_HECC": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "204",
+          "name": "Advanced Module Biostatistics",
+          "ects": 3.0
+        },
+        {
+          "code": "206",
+          "name": "Advanced Module Health and Environment in a context of Climate Change",
+          "ects": 3.0
+        },
+        {
+          "code": "218",
+          "name": "Identification & Diagnosis of Environmental Health Problems in a Territory",
+          "ects": 3.0
+        },
+        {
+          "code": "233",
+          "name": "GIS & Environmental Health",
+          "ects": 3.0
+        },
+        {
+          "code": "219",
+          "name": "Integration of Environmental Health in Policies, Projects & Interventions",
+          "ects": 3.0
+        },
+        {
+          "code": "217",
+          "name": "Impact Assessment in Environmental Health",
+          "ects": 3.0
+        },
+        {
+          "code": "241",
+          "name": "Monitoring and following Environmental Health actions",
+          "ects": 1.5
+        },
+        {
+          "code": "242",
+          "name": "Case Study in EOHS",
+          "ects": 4.5
+        },
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "202",
+            "203",
+            "205"
+          ]
+        },
+        "Elective2": {
+          "select_n": 2,
+          "available": 3,
+          "candidates": [
+            "215",
+            "226",
+            "229"
+          ]
+        }
+      },
+      "supra": [
+        {
+          "code": "240",
+          "name": "Advanced Quantitative Methods in Population Mental Health"
+        },
+        {
+          "code": "227",
+          "name": "Health Policies & Health System Analysis in LMICs"
+        },
+        {
+          "code": "238",
+          "name": "Perinatal & Pediatric Epidemiology"
+        }
+      ],
+      "rule_text": "Mandatory modules for 27 ECTS. One Elective1 module for 3 ECTS. Two Elective2 modules for 6 ECTS."
+    },
+    "MPH_HPM": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "205",
+          "name": "Advanced Module Health Policy & Management",
+          "ects": 3.0
+        },
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 2,
+          "candidates": [
+            "202",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 1,
+          "available": 2,
+          "candidates": [
+            "203",
+            "204"
+          ]
+        },
+        "Elective3": {
+          "select_n": 5,
+          "available": 7,
+          "candidates": [
+            "228",
+            "213",
+            "212",
+            "226",
+            "235",
+            "208",
+            "227"
+          ]
+        },
+        "Elective4/Elective3": {
+          "select_n": 3,
+          "available": 29,
+          "candidates": [
+            "209",
+            "223",
+            "218",
+            "215",
+            "220",
+            "210",
+            "211",
+            "233",
+            "219",
+            "231",
+            "240",
+            "214",
+            "217",
+            "230",
+            "239",
+            "241",
+            "224",
+            "242",
+            "221",
+            "225",
+            "229",
+            "238",
+            "228",
+            "213",
+            "212",
+            "226",
+            "235",
+            "208",
+            "227"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "Mandatory modules for 6 ECTS. One Elective1 module for 3 ECTS. One Elective2 module for 3 ECTS. Five Elective3 modules for 15 ECTS. Three Elective4 or Elective3 modules for 9 ETCS."
+    },
+    "MPH_PHP": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "202",
+          "name": "Advanced Module Prevention & Health Promotion",
+          "ects": 3.0
+        },
+        {
+          "code": "205",
+          "name": "Advanced Module Health Policy & Management",
+          "ects": 3.0
+        },
+        {
+          "code": "209",
+          "name": "Health Promotion & Education",
+          "ects": 3.0
+        },
+        {
+          "code": "228",
+          "name": "Managing Community Program Implementation",
+          "ects": 3.0
+        },
+        {
+          "code": "220",
+          "name": "Health Communication",
+          "ects": 3.0
+        },
+        {
+          "code": "226",
+          "name": "Health Care Management",
+          "ects": 3.0
+        },
+        {
+          "code": "239",
+          "name": "Health Promotion & Disease Prevention Program & Policy Planning",
+          "ects": 3.0
+        },
+        {
+          "code": "221",
+          "name": "Prevention & Lifestyle Behaviour Change",
+          "ects": 3.0
+        },
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 1,
+          "available": 3,
+          "candidates": [
+            "203",
+            "204",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 2,
+          "available": 15,
+          "candidates": [
+            "218",
+            "210",
+            "211",
+            "213",
+            "233",
+            "214",
+            "217",
+            "235",
+            "230",
+            "208",
+            "224",
+            "242",
+            "227",
+            "229",
+            "238"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "Mandatory modules for 27 ECTS. One Elective1 module for 3 ECTS. Two Elective2 modules for 6 ECTS."
+    },
+    "MPH_GEN": {
+      "level": "MPH",
+      "ects_floor": 36,
+      "mandatory": [
+        {
+          "code": "201",
+          "name": "Cross-Disciplinary Module - Global Health",
+          "ects": 3.0
+        }
+      ],
+      "electives": {
+        "Elective1": {
+          "select_n": 3,
+          "available": 5,
+          "candidates": [
+            "202",
+            "203",
+            "204",
+            "205",
+            "206"
+          ]
+        },
+        "Elective2": {
+          "select_n": 8,
+          "available": 29,
+          "candidates": [
+            "209",
+            "223",
+            "228",
+            "218",
+            "215",
+            "220",
+            "210",
+            "211",
+            "213",
+            "233",
+            "212",
+            "219",
+            "231",
+            "226",
+            "240",
+            "214",
+            "217",
+            "235",
+            "230",
+            "239",
+            "241",
+            "208",
+            "224",
+            "242",
+            "221",
+            "225",
+            "227",
+            "229",
+            "238"
+          ]
+        }
+      },
+      "supra": [],
+      "rule_text": "One Mandatory module for 3 ECTS. Three Elective1 modules for 9 ECTS. 8 Elective2 modules for 24 ECTS."
+    }
+  }
+};
+if (typeof module !== "undefined" && module.exports) { module.exports = SPEC; }

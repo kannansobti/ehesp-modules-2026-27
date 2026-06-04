@@ -1,0 +1,1413 @@
+[
+  {
+    "track": "EPH_EPI/ISB",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "231",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "230",
+        "role": "Elective2"
+      },
+      {
+        "code": "224",
+        "role": "Elective2"
+      }
+    ]
+  },
+  {
+    "track": "EPH_EPI/ISB",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "EPH_EPI/ISB",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "231",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "230",
+        "role": "Elective2"
+      },
+      {
+        "code": "224",
+        "role": "Elective2"
+      },
+      {
+        "code": "203",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "EPH_HECC",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      },
+      {
+        "code": "215",
+        "role": "Elective1"
+      },
+      {
+        "code": "226",
+        "role": "Elective1"
+      },
+      {
+        "code": "229",
+        "role": "Elective1"
+      }
+    ]
+  },
+  {
+    "track": "EPH_HECC",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "EPH_HECC",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "IntEPH",
+        "role": "mandatory"
+      },
+      {
+        "code": "215",
+        "role": "Elective1"
+      },
+      {
+        "code": "226",
+        "role": "Elective1"
+      },
+      {
+        "code": "229",
+        "role": "Elective1"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_EPI",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "224",
+        "role": "mandatory"
+      },
+      {
+        "code": "225",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "231",
+        "role": "Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3/Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective5"
+      },
+      {
+        "code": "217",
+        "role": "Elective5"
+      }
+    ]
+  },
+  {
+    "track": "MPH_EPI",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "224",
+        "role": "mandatory"
+      },
+      {
+        "code": "225",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_EPI",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "224",
+        "role": "mandatory"
+      },
+      {
+        "code": "225",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "231",
+        "role": "Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3/Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective5"
+      },
+      {
+        "code": "217",
+        "role": "Elective5"
+      },
+      {
+        "code": "203",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_EPI",
+    "expect": "reject",
+    "note": "forced week clash (counts+floor OK)",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "223",
+        "role": "mandatory"
+      },
+      {
+        "code": "224",
+        "role": "mandatory"
+      },
+      {
+        "code": "225",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3/Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective5"
+      },
+      {
+        "code": "217",
+        "role": "Elective5"
+      }
+    ]
+  },
+  {
+    "track": "MPH_ISB",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "231",
+        "role": "mandatory"
+      },
+      {
+        "code": "214",
+        "role": "mandatory"
+      },
+      {
+        "code": "230",
+        "role": "mandatory"
+      },
+      {
+        "code": "229",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "223",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "233",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective3/Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_ISB",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "231",
+        "role": "mandatory"
+      },
+      {
+        "code": "214",
+        "role": "mandatory"
+      },
+      {
+        "code": "230",
+        "role": "mandatory"
+      },
+      {
+        "code": "229",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_ISB",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "231",
+        "role": "mandatory"
+      },
+      {
+        "code": "214",
+        "role": "mandatory"
+      },
+      {
+        "code": "230",
+        "role": "mandatory"
+      },
+      {
+        "code": "229",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "223",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "233",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective3/Elective2"
+      },
+      {
+        "code": "203",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_ISB",
+    "expect": "reject",
+    "note": "forced week clash (counts+floor OK)",
+    "picks": [
+      {
+        "code": "203",
+        "role": "mandatory"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "231",
+        "role": "mandatory"
+      },
+      {
+        "code": "214",
+        "role": "mandatory"
+      },
+      {
+        "code": "230",
+        "role": "mandatory"
+      },
+      {
+        "code": "229",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "240",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "233",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective3/Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HECC",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "217",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HECC",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "217",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HECC",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "204",
+        "role": "mandatory"
+      },
+      {
+        "code": "206",
+        "role": "mandatory"
+      },
+      {
+        "code": "218",
+        "role": "mandatory"
+      },
+      {
+        "code": "233",
+        "role": "mandatory"
+      },
+      {
+        "code": "219",
+        "role": "mandatory"
+      },
+      {
+        "code": "217",
+        "role": "mandatory"
+      },
+      {
+        "code": "241",
+        "role": "mandatory"
+      },
+      {
+        "code": "242",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective2"
+      },
+      {
+        "code": "204",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HPM",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective3"
+      },
+      {
+        "code": "213",
+        "role": "Elective3"
+      },
+      {
+        "code": "226",
+        "role": "Elective3"
+      },
+      {
+        "code": "235",
+        "role": "Elective3"
+      },
+      {
+        "code": "208",
+        "role": "Elective3"
+      },
+      {
+        "code": "209",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "230",
+        "role": "Elective4/Elective3"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HPM",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HPM",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective3"
+      },
+      {
+        "code": "213",
+        "role": "Elective3"
+      },
+      {
+        "code": "226",
+        "role": "Elective3"
+      },
+      {
+        "code": "235",
+        "role": "Elective3"
+      },
+      {
+        "code": "208",
+        "role": "Elective3"
+      },
+      {
+        "code": "209",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "230",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "205",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_HPM",
+    "expect": "reject",
+    "note": "forced week clash (counts+floor OK)",
+    "picks": [
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective3"
+      },
+      {
+        "code": "212",
+        "role": "Elective3"
+      },
+      {
+        "code": "226",
+        "role": "Elective3"
+      },
+      {
+        "code": "235",
+        "role": "Elective3"
+      },
+      {
+        "code": "208",
+        "role": "Elective3"
+      },
+      {
+        "code": "209",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "215",
+        "role": "Elective4/Elective3"
+      },
+      {
+        "code": "230",
+        "role": "Elective4/Elective3"
+      }
+    ]
+  },
+  {
+    "track": "MPH_PHP",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "202",
+        "role": "mandatory"
+      },
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "209",
+        "role": "mandatory"
+      },
+      {
+        "code": "228",
+        "role": "mandatory"
+      },
+      {
+        "code": "220",
+        "role": "mandatory"
+      },
+      {
+        "code": "226",
+        "role": "mandatory"
+      },
+      {
+        "code": "239",
+        "role": "mandatory"
+      },
+      {
+        "code": "221",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_PHP",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "202",
+        "role": "mandatory"
+      },
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "209",
+        "role": "mandatory"
+      },
+      {
+        "code": "228",
+        "role": "mandatory"
+      },
+      {
+        "code": "220",
+        "role": "mandatory"
+      },
+      {
+        "code": "226",
+        "role": "mandatory"
+      },
+      {
+        "code": "239",
+        "role": "mandatory"
+      },
+      {
+        "code": "221",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_PHP",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "202",
+        "role": "mandatory"
+      },
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "209",
+        "role": "mandatory"
+      },
+      {
+        "code": "228",
+        "role": "mandatory"
+      },
+      {
+        "code": "220",
+        "role": "mandatory"
+      },
+      {
+        "code": "226",
+        "role": "mandatory"
+      },
+      {
+        "code": "239",
+        "role": "mandatory"
+      },
+      {
+        "code": "221",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "202",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_PHP",
+    "expect": "reject",
+    "note": "forced week clash (counts+floor OK)",
+    "picks": [
+      {
+        "code": "202",
+        "role": "mandatory"
+      },
+      {
+        "code": "205",
+        "role": "mandatory"
+      },
+      {
+        "code": "209",
+        "role": "mandatory"
+      },
+      {
+        "code": "228",
+        "role": "mandatory"
+      },
+      {
+        "code": "220",
+        "role": "mandatory"
+      },
+      {
+        "code": "226",
+        "role": "mandatory"
+      },
+      {
+        "code": "239",
+        "role": "mandatory"
+      },
+      {
+        "code": "221",
+        "role": "mandatory"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "218",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_GEN",
+    "expect": "accept",
+    "note": "solver-proven valid selection",
+    "picks": [
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "204",
+        "role": "Elective1"
+      },
+      {
+        "code": "209",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "230",
+        "role": "Elective2"
+      },
+      {
+        "code": "208",
+        "role": "Elective2"
+      }
+    ]
+  },
+  {
+    "track": "MPH_GEN",
+    "expect": "reject",
+    "note": "mandatory only (tier counts + floor fail)",
+    "picks": [
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_GEN",
+    "expect": "reject",
+    "note": "duplicate module",
+    "picks": [
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "204",
+        "role": "Elective1"
+      },
+      {
+        "code": "209",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "230",
+        "role": "Elective2"
+      },
+      {
+        "code": "208",
+        "role": "Elective2"
+      },
+      {
+        "code": "201",
+        "role": "mandatory"
+      }
+    ]
+  },
+  {
+    "track": "MPH_GEN",
+    "expect": "reject",
+    "note": "forced week clash (counts+floor OK)",
+    "picks": [
+      {
+        "code": "201",
+        "role": "mandatory"
+      },
+      {
+        "code": "202",
+        "role": "Elective1"
+      },
+      {
+        "code": "203",
+        "role": "Elective1"
+      },
+      {
+        "code": "204",
+        "role": "Elective1"
+      },
+      {
+        "code": "220",
+        "role": "Elective2"
+      },
+      {
+        "code": "228",
+        "role": "Elective2"
+      },
+      {
+        "code": "215",
+        "role": "Elective2"
+      },
+      {
+        "code": "210",
+        "role": "Elective2"
+      },
+      {
+        "code": "226",
+        "role": "Elective2"
+      },
+      {
+        "code": "214",
+        "role": "Elective2"
+      },
+      {
+        "code": "230",
+        "role": "Elective2"
+      },
+      {
+        "code": "208",
+        "role": "Elective2"
+      }
+    ]
+  }
+]
